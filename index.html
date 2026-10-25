@@ -1,0 +1,843 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital Marketing Foundations — Chapter 1</title>
+<meta name="description" content="Digital Marketing Essentials, Chapter 1: how the web works, what websites are for, and how to judge a website on traffic, conversion and revenue per conversion.">
+<style>
+:root{
+  --bg:#f6f7fb; --surface:#ffffff; --surface-2:#eef1f7; --ink:#0f1b2d; --muted:#56627a; --line:#dde2ec;
+  --accent:#1f5fd1; --accent-ink:#ffffff; --accent-soft:#e6eefc;
+  --teal:#0b8f7c; --teal-soft:#e3f5f2; --amber:#a5670f; --amber-soft:#fdf3e2;
+  --red:#c2410c; --red-soft:#fdece4; --purple:#6d3fc0; --purple-soft:#f0eafb;
+  --shadow:0 1px 2px rgba(15,27,45,.06),0 4px 16px rgba(15,27,45,.05);
+  --radius:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d131d; --surface:#151d2a; --surface-2:#1c2636; --ink:#e8edf6; --muted:#9aa6bc; --line:#2a3548;
+    --accent:#6c9cf5; --accent-ink:#0d131d; --accent-soft:#1c2a45;
+    --teal:#3cc7b1; --teal-soft:#14302c; --amber:#e7a94a; --amber-soft:#33281a;
+    --red:#f08a5d; --red-soft:#3a2219; --purple:#a988ec; --purple-soft:#2a2240;
+    --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0d131d; --surface:#151d2a; --surface-2:#1c2636; --ink:#e8edf6; --muted:#9aa6bc; --line:#2a3548;
+  --accent:#6c9cf5; --accent-ink:#0d131d; --accent-soft:#1c2a45;
+  --teal:#3cc7b1; --teal-soft:#14302c; --amber:#e7a94a; --amber-soft:#33281a;
+  --red:#f08a5d; --red-soft:#3a2219; --purple:#a988ec; --purple-soft:#2a2240;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 4px 16px rgba(0,0,0,.25);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+h1,h2,h3,h4{line-height:1.2;margin:0 0 .5em}
+h2{font-size:1.75rem;letter-spacing:-.01em}
+h3{font-size:1.15rem;margin-top:1.6em}
+p{margin:0 0 1em}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+/* nav */
+nav.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;align-items:center;gap:6px;height:54px;overflow-x:auto;scrollbar-width:none}
+nav.top .wrap::-webkit-scrollbar{display:none}
+nav.top a{white-space:nowrap;text-decoration:none;color:var(--muted);font-size:.88rem;padding:6px 10px;border-radius:8px}
+nav.top a:hover{background:var(--surface-2);color:var(--ink)}
+nav.top a.brand{font-weight:700;color:var(--ink);margin-right:6px}
+#themeBtn{margin-left:auto;flex:none;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;width:34px;height:34px;cursor:pointer;font-size:1rem}
+/* hero */
+header.hero{padding:56px 0 28px}
+.eyebrow{font-size:.8rem;text-transform:uppercase;letter-spacing:.12em;color:var(--accent);font-weight:700;margin-bottom:10px}
+.hero h1{font-size:clamp(2.1rem,5vw,3.2rem);letter-spacing:-.02em;margin-bottom:14px}
+.hero p.lead{font-size:1.15rem;color:var(--muted);max-width:720px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:5px 12px;font-size:.88rem;text-decoration:none;color:var(--ink)}
+.chip .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+/* sections */
+section{padding:44px 0;border-top:1px solid var(--line)}
+.kicker{font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:700;margin-bottom:6px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.grid{display:grid;gap:14px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.g4{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+.card h4{margin-bottom:6px;font-size:1rem}
+.card p:last-child,.card ul:last-child{margin-bottom:0}
+.card.tint-blue{background:var(--accent-soft);border-color:transparent;box-shadow:none}
+.card.tint-teal{background:var(--teal-soft);border-color:transparent;box-shadow:none}
+.card.tint-purple{background:var(--purple-soft);border-color:transparent;box-shadow:none}
+.card.tint-amber{background:var(--amber-soft);border-color:transparent;box-shadow:none}
+ul.clean{padding-left:1.1em;margin:0 0 1em}
+ul.clean li{margin:.2em 0}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 8px;border-radius:6px;background:var(--surface-2);color:var(--muted)}
+.callout{border-left:4px solid var(--amber);background:var(--amber-soft);padding:14px 18px;border-radius:0 12px 12px 0;margin:18px 0}
+.callout b.lbl{color:var(--amber);text-transform:uppercase;font-size:.75rem;letter-spacing:.08em;display:block;margin-bottom:4px}
+.callout ul{margin:.3em 0 0;padding-left:1.1em}
+.keyidea{border-left:4px solid var(--accent);background:var(--accent-soft);padding:14px 18px;border-radius:0 12px 12px 0;margin:18px 0;font-weight:500}
+.case{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);overflow:hidden;box-shadow:var(--shadow);margin:18px 0}
+.case .head{padding:12px 20px;background:var(--surface-2);display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.case .head strong{font-size:1.02rem}
+.case .body{padding:18px 20px}
+/* steps */
+ol.steps{list-style:none;padding:0;margin:0;counter-reset:s;display:grid;gap:8px}
+ol.steps li{counter-increment:s;display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+ol.steps li::before{content:counter(s);flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:.85rem;display:grid;place-items:center}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-size:.82rem;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+/* bars */
+.bars{display:grid;gap:8px}
+.bar{display:grid;grid-template-columns:120px 1fr 74px;align-items:center;gap:10px;font-size:.9rem}
+.bar .track{height:14px;background:var(--surface-2);border-radius:7px;overflow:hidden}
+.bar .fill{height:100%;background:var(--accent);border-radius:7px;transition:width .3s,background .3s}
+.bar b{text-align:right;font-variant-numeric:tabular-nums}
+/* widget */
+.widget{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin:20px 0}
+.widget h3{margin-top:0}
+.widget .sub{color:var(--muted);font-size:.92rem;margin-top:-4px}
+.ctrl{display:grid;grid-template-columns:170px 1fr 84px;gap:12px;align-items:center;margin:10px 0}
+.ctrl label{font-size:.9rem;font-weight:600}
+.ctrl output{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+input[type=range]{width:100%;accent-color:var(--accent)}
+select,input[type=number],input[type=text],textarea{font:inherit;background:var(--surface-2);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 8px;width:100%}
+textarea{min-height:70px;resize:vertical}
+button.btn{font:inherit;font-weight:600;border:0;background:var(--accent);color:var(--accent-ink);padding:9px 16px;border-radius:9px;cursor:pointer}
+button.ghost{font:inherit;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 14px;border-radius:9px;cursor:pointer}
+.result{margin-top:14px;padding:14px;border-radius:10px;background:var(--surface-2)}
+.meter{height:16px;background:var(--line);border-radius:8px;overflow:hidden;margin:6px 0}
+.meter div{height:100%;background:linear-gradient(90deg,var(--teal),var(--accent));transition:width .25s}
+.big{font-size:1.6rem;font-weight:800;font-variant-numeric:tabular-nums}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface)}
+.win{color:var(--teal);font-weight:700}
+/* picker buttons */
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 14px}
+.opts button{font:inherit;font-size:.9rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:7px 12px;border-radius:999px;cursor:pointer}
+.opts button[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+/* url anatomy */
+.url{font:600 clamp(.95rem,2.6vw,1.25rem)/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--surface-2);border-radius:10px;padding:14px;display:flex;flex-wrap:wrap;gap:2px;word-break:break-all}
+.url button{font:inherit;border:0;border-bottom:3px solid transparent;background:transparent;color:var(--ink);padding:2px 1px;cursor:pointer;border-radius:3px}
+.url button:hover{background:var(--line)}
+.url button[aria-pressed=true]{border-bottom-color:var(--accent);background:var(--accent-soft);color:var(--accent)}
+.url .dom{outline:2px dashed var(--teal);outline-offset:2px;border-radius:4px;display:inline-flex}
+/* dns flow */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+.node{background:var(--surface-2);border:2px solid var(--line);border-radius:12px;padding:12px;text-align:center;transition:all .25s}
+.node .ic{font-size:1.6rem;line-height:1}
+.node b{display:block;font-size:.9rem;margin-top:6px}
+.node small{color:var(--muted);font-size:.78rem}
+.node.on{border-color:var(--accent);background:var(--accent-soft);transform:translateY(-3px)}
+.packet{min-height:58px;padding:12px 14px;border-radius:10px;background:var(--surface-2);font-size:.93rem}
+/* glossary */
+.gloss{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(210px,1fr))}
+.term{text-align:left;font:inherit;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;cursor:pointer;color:var(--ink);min-height:92px;box-shadow:var(--shadow)}
+.term b{display:block;margin-bottom:4px}
+.term span{font-size:.88rem;color:var(--muted)}
+.term .def{display:none}
+.term.open{background:var(--accent-soft);border-color:transparent}
+.term.open .def{display:block;color:var(--ink)}
+.term.open .hint{display:none}
+/* http demo */
+.wire{font:500 .88rem/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:var(--surface-2);border-radius:10px;padding:12px 14px;word-break:break-all;min-height:66px}
+.lock{display:inline-flex;align-items:center;gap:8px;font-size:.9rem;padding:6px 12px;border-radius:999px;background:var(--surface-2);margin-bottom:10px}
+/* triangle */
+.formula{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin:14px 0;font-weight:700}
+.formula .t{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px;text-align:center;min-width:130px;box-shadow:var(--shadow)}
+.formula .t small{display:block;font-weight:500;color:var(--muted);font-size:.78rem}
+.formula .op{font-size:1.4rem;color:var(--muted)}
+/* funnel */
+.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stage{font:inherit;text-align:left;cursor:pointer;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:var(--shadow)}
+.stage[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.stage b{display:block}
+.stage small{opacity:.8}
+/* checkout */
+.checkout{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.checkout button{font:inherit;font-size:.85rem;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 12px;border-radius:9px;cursor:pointer}
+.checkout button[aria-pressed=true]{background:var(--red);border-color:var(--red);color:#fff}
+/* quiz */
+.q{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:12px 0}
+.q p.stem{font-weight:600;margin-bottom:10px}
+.q .choices{display:grid;gap:8px}
+.q button.c{font:inherit;text-align:left;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);padding:9px 12px;border-radius:9px;cursor:pointer}
+.q button.c:disabled{cursor:default}
+.q button.c.right{background:var(--teal-soft);border-color:var(--teal);font-weight:600}
+.q button.c.wrong{background:var(--red-soft);border-color:var(--red)}
+.q .exp{display:none;margin-top:10px;font-size:.92rem;color:var(--muted)}
+.q.done .exp{display:block}
+.score{position:sticky;bottom:12px;display:flex;gap:12px;align-items:center;justify-content:space-between;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 16px;box-shadow:var(--shadow);margin-top:16px}
+.ws label{display:block;font-weight:600;font-size:.93rem;margin:14px 0 6px}
+footer{padding:36px 0 60px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line)}
+@media (max-width:600px){
+  .ctrl{grid-template-columns:1fr 76px}.ctrl label{grid-column:1/-1}
+  .bar{grid-template-columns:92px 1fr 62px}
+  .flow{grid-template-columns:repeat(2,1fr)}
+  .stages{grid-template-columns:1fr}
+  section{padding:34px 0}
+}
+</style>
+</head>
+<body>
+
+<nav class="top" aria-label="Chapter sections">
+  <div class="wrap">
+    <a class="brand" href="#top">Ch 1</a>
+    <a href="#web">How the web works</a>
+    <a href="#terms">Terms</a>
+    <a href="#build">Building a site</a>
+    <a href="#objectives">Objectives</a>
+    <a href="#success">Success formula</a>
+    <a href="#conversions">Conversions</a>
+    <a href="#flags">Diagnose</a>
+    <a href="#rogue">Rogue case</a>
+    <a href="#local">Assignment</a>
+    <a href="#quiz">Quiz</a>
+    <button id="themeBtn" type="button" aria-label="Toggle light or dark theme" title="Toggle theme">◐</button>
+  </div>
+</nav>
+
+<div class="wrap" id="top">
+  <header class="hero">
+    <div class="eyebrow">Digital Marketing · Chapter 1</div>
+    <h1>Digital Marketing Foundations</h1>
+    <p class="lead">Every chapter after this one is a way to improve a website. Before you can improve one, you need to know how it works and what it's for. This chapter covers both, plus a simple test for whether a website is succeeding.</p>
+    <p style="font-weight:600;margin:18px 0 4px">Learning objectives</p>
+    <ol class="steps" style="max-width:760px">
+      <li><span>Describe how computers and servers communicate so people can use web pages on the internet.</span></li>
+      <li><span>Name the three objectives of a website.</span></li>
+      <li><span>Evaluate a website's performance on those three objectives and identify specific areas to improve.</span></li>
+    </ol>
+    <p style="font-weight:600;margin:22px 0 4px">By the end of the course, you can add these to your résumé</p>
+    <div class="chips">
+      <span class="chip"><span class="dot" style="background:var(--teal)"></span>Google Analytics</span>
+      <span class="chip"><span class="dot" style="background:var(--purple)"></span>Keyword research</span>
+      <span class="chip"><span class="dot" style="background:var(--purple)"></span>On-page SEO</span>
+      <span class="chip"><span class="dot" style="background:var(--purple)"></span>SEMrush</span>
+      <span class="chip"><span class="dot"></span>Search engine marketing</span>
+      <span class="chip"><span class="dot"></span>Email marketing</span>
+      <span class="chip"><span class="dot"></span>Facebook advertising</span>
+      <span class="chip"><span class="dot"></span>Social media management</span>
+    </div>
+    <div class="legend"><span><i style="background:var(--teal)"></i>Analytics</span><span><i style="background:var(--purple)"></i>SEO</span><span><i style="background:var(--accent)"></i>Marketing</span></div>
+  </header>
+</div>
+
+<!-- WEB -->
+<section id="web">
+  <div class="wrap">
+    <div class="kicker">Part 1 · The plumbing</div>
+    <h2>What happens when you type a web address</h2>
+    <p>Marketers don't need to be engineers. But when a site goes down, loads slowly, or shows a "Not secure" warning, customers leave, and you need to know who to call. Start with the address itself.</p>
+
+    <div class="widget" id="urlWidget">
+      <h3>Try it: take apart a URL</h3>
+      <p class="sub">A <b>URL</b> (Uniform Resource Locator) is the full address of one page. The <b>domain name</b> (dashed box) is just the part a business registers. Click each piece.</p>
+      <div class="url" id="urlParts" role="group" aria-label="Parts of a URL"></div>
+      <div class="result" id="urlOut" aria-live="polite"></div>
+    </div>
+
+    <div class="grid g2">
+      <div class="card">
+        <span class="tag">Who rents you the name</span>
+        <h4 style="margin-top:8px">Registrar</h4>
+        <p>A company that manages the leasing of domain names. You register a name and it's reserved for you as long as you keep paying, usually yearly. GoDaddy is the largest; Namecheap, Squarespace Domains and Cloudflare are others.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Who stores the site</span>
+        <h4 style="margin-top:8px">Server</h4>
+        <p>An always-on computer that answers requests for a website's files. Big sites run on thousands of servers in <b>server farms</b> (data centers). Servers make so much heat that Facebook built one data center about 70 miles from the Arctic Circle so cold outside air can cool it.</p>
+      </div>
+    </div>
+
+    <div class="widget" id="dnsWidget">
+      <h3>Try it: follow a page request</h3>
+      <p class="sub">Computers find each other by number (an <b>IP address</b>), not by name. The <b>DNS</b> (Domain Name System) works like the internet's phone book. This is simplified; the real process has more steps.</p>
+      <div class="flow" id="dnsFlow">
+        <div class="node" data-n="0"><div class="ic">💻</div><b>Your browser</b><small>Chrome, Safari…</small></div>
+        <div class="node" data-n="1"><div class="ic">📖</div><b>DNS server</b><small>name → number</small></div>
+        <div class="node" data-n="2"><div class="ic">🗄️</div><b>Amazon's server</b><small>54.192.189.0</small></div>
+        <div class="node" data-n="3"><div class="ic">🖼️</div><b>Page on screen</b><small>browser draws it</small></div>
+      </div>
+      <div class="packet" id="dnsMsg" aria-live="polite"></div>
+      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+        <button class="ghost" id="dnsPrev" type="button">← Back</button>
+        <button class="btn" id="dnsNext" type="button">Next step →</button>
+      </div>
+    </div>
+
+    <h3>Web browsers</h3>
+    <p>A browser translates the web's language (HTML) into a page a person can read and click. Browsers interpret code slightly differently, so a checkout that works in Chrome can break in Safari. If every Safari user suddenly can't buy, revenue drops, so marketers test their key pages in more than one browser.</p>
+    <div class="chips">
+      <span class="chip">Google Chrome</span><span class="chip">Apple Safari</span><span class="chip">Microsoft Edge</span><span class="chip">Firefox</span><span class="chip">Samsung Internet</span><span class="chip">Opera</span>
+    </div>
+    <p style="font-size:.85rem;color:var(--muted)">Chrome accounts for roughly two of every three page views worldwide, and Safari is a distant second, mostly because of iPhones (StatCounter). Most of your customers will be on one of those two.</p>
+  </div>
+</section>
+
+<!-- TERMS -->
+<section id="terms">
+  <div class="wrap">
+    <div class="kicker">Vocabulary</div>
+    <h2>Technical terms and acronyms</h2>
+    <p>Tap a card to see the definition. Try to say it in your own words first.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px">
+      <input type="text" id="glossFilter" placeholder="Filter terms…" aria-label="Filter terms" style="max-width:260px">
+      <button class="ghost" id="glossAll" type="button">Show all</button>
+      <button class="ghost" id="glossNone" type="button">Hide all</button>
+    </div>
+    <div class="gloss" id="gloss"></div>
+
+    <h3>Acronyms to know</h3>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Acronym</th><th>Stands for</th><th>In plain English</th></tr></thead>
+        <tbody>
+          <tr><td><b>URL</b></td><td>Uniform Resource Locator</td><td>The full address of one page or file.</td></tr>
+          <tr><td><b>HTTP</b></td><td>Hypertext Transfer Protocol</td><td>The rules browsers and servers use to send pages back and forth.</td></tr>
+          <tr><td><b>HTTPS</b></td><td>HTTP Secure</td><td>HTTP with encryption, so others can't read what's sent.</td></tr>
+          <tr><td><b>FTP</b></td><td>File Transfer Protocol</td><td>An older way to upload files to a server. Today most people use a CMS or Git instead.</td></tr>
+          <tr><td><b>IP address</b></td><td>Internet Protocol address</td><td>The number that identifies a computer on the internet.</td></tr>
+          <tr><td><b>HTML</b></td><td>Hypertext Markup Language</td><td>The language web pages are written in.</td></tr>
+          <tr><td><b>DNS</b></td><td>Domain Name System</td><td>Looks up the IP address that goes with a domain name.</td></tr>
+          <tr><td><b>CMS</b></td><td>Content Management System</td><td>Software for building a site without coding it from scratch.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- BUILD -->
+<section id="build">
+  <div class="wrap">
+    <div class="kicker">Part 2 · Building a website</div>
+    <h2>What you need to put a business online</h2>
+    <p>Think of a website as a store. Each piece below matches something a physical store needs.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>Website piece</th><th>Physical store version</th><th>Examples</th></tr></thead>
+        <tbody>
+          <tr><td><b>Domain name</b> (from a registrar)</td><td>The store's street address and sign</td><td>GoDaddy, Namecheap</td></tr>
+          <tr><td><b>Web hosting</b></td><td>Renting the building</td><td>GoDaddy, Bluehost, DreamHost, GitHub Pages (free for simple sites)</td></tr>
+          <tr><td><b>Security certificate</b></td><td>Locks on the doors and the cash drawer</td><td>Usually free from the host or Let's Encrypt</td></tr>
+          <tr><td><b>Content management system</b></td><td>Shelves, displays and signs</td><td>WordPress, Wix, Squarespace, Shopify</td></tr>
+          <tr><td><b>Payment gateway</b></td><td>The card reader at the register</td><td>Stripe, PayPal, Shopify Payments, Square</td></tr>
+          <tr><td><b>Merchant account</b></td><td>The business bank account</td><td>Often bundled with the gateway</td></tr>
+          <tr><td><b>Inventory management</b></td><td>The stockroom and its count</td><td>Shopify, WooCommerce</td></tr>
+          <tr><td><b>Web analytics</b></td><td>Door counter plus register receipts</td><td>Google Analytics (Chapter 3)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Web hosting: rent or buy the server?</h3>
+    <div class="grid g2">
+      <div class="card tint-blue"><h4>Rent (web hosting)</h4><p>A host rents you a small slice of a server. Your site is always on, and you don't need to buy or maintain hardware. This is where nearly every small business starts.</p></div>
+      <div class="card tint-purple"><h4>Own or lease whole servers</h4><p>When a site grows very large or gets huge traffic, it upgrades its hosting plan or runs its own servers, often on cloud platforms such as Amazon Web Services.</p></div>
+    </div>
+
+    <div class="widget" id="httpWidget">
+      <h3>Try it: what can a snoop see?</h3>
+      <p class="sub">Data sent over the internet isn't private by default. A security certificate turns on encryption (TLS, the newer version of SSL). Switch between HTTP and HTTPS to see what someone on the same café Wi-Fi could read.</p>
+      <div class="opts" id="httpOpts">
+        <button type="button" data-v="http" aria-pressed="true">http://</button>
+        <button type="button" data-v="https" aria-pressed="false">https://</button>
+      </div>
+      <div class="lock" id="httpLock"></div>
+      <div class="wire" id="httpWire"></div>
+      <p id="httpMsg" style="font-size:.92rem;margin:12px 0 0"></p>
+    </div>
+
+    <h3>Content management systems</h3>
+    <div class="grid g3">
+      <div class="card"><h4>WordPress</h4><p>Runs over 40% of all websites. Free and flexible, and you can edit the code directly if you need to.</p></div>
+      <div class="card"><h4>Wix &amp; Squarespace</h4><p>Drag-and-drop builders with hosting included. Fastest way to get a good-looking small-business site.</p></div>
+      <div class="card"><h4>Shopify</h4><p>A CMS built for selling: product pages, cart, payments and inventory in one system.</p></div>
+    </div>
+
+    <h3>Web analytics</h3>
+    <p>Analytics reports what people do on your site: where they came from, what they looked at, and what they bought. Chapter 3 covers it in depth. For now, imagine you own an online store. What would you want to know? Sort your answers into three buckets, and you've built the success formula below.</p>
+
+    <div class="callout"><b class="lbl">What changed since the textbook</b>
+      <ul>
+        <li>Since 2018, Chrome and other browsers label every plain-HTTP page <b>"Not secure"</b>, and Google gives HTTPS pages a small ranking boost. Today <b>every page</b> should be HTTPS, not just checkout.</li>
+        <li>People still say "SSL certificate," but the encryption is now TLS. Certificates are free through Let's Encrypt and most hosts, so cost is no longer an excuse.</li>
+        <li>Google Analytics 4 replaced Universal Analytics in July 2023, and in 2024 it renamed "conversions" to <b>key events</b>. The idea in this chapter is the same.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIVES -->
+<section id="objectives">
+  <div class="wrap">
+    <div class="kicker">Part 3 · Why the site exists</div>
+    <h2>Primary website objectives</h2>
+    <p>The most common objective is to <b>earn money through online sales</b>. But many websites make money another way, and some aren't meant to make money at all. You can't judge a website until you know which job it's doing.</p>
+    <div class="grid g3">
+      <div class="card tint-blue"><span class="tag">Make money</span><h4 style="margin-top:8px">Online sales</h4><p>Amazon, Target, Rogue Fitness.</p></div>
+      <div class="card tint-blue"><span class="tag">Make money</span><h4 style="margin-top:8px">Subscriptions</h4><p>Netflix, Spotify, The Wall Street Journal.</p></div>
+      <div class="card tint-blue"><span class="tag">Make money</span><h4 style="margin-top:8px">Commissions</h4><p>Airbnb, eBay, Expedia: a cut of each transaction.</p></div>
+      <div class="card tint-blue"><span class="tag">Make money</span><h4 style="margin-top:8px">Advertising</h4><p>News sites, YouTube, recipe blogs.</p></div>
+      <div class="card tint-teal"><span class="tag">Support the business</span><h4 style="margin-top:8px">Generate offline sales</h4><p>Car dealers, restaurants, law firms: the sale happens in person.</p></div>
+      <div class="card tint-teal"><span class="tag">Support the business</span><h4 style="margin-top:8px">Customer support</h4><p>Help centers that answer questions and cut call volume.</p></div>
+      <div class="card tint-purple"><span class="tag">Mission</span><h4 style="margin-top:8px">Support a cause</h4><p>Charities, churches, advocacy groups: donations and volunteers.</p></div>
+    </div>
+    <p style="margin-top:14px;font-size:.92rem;color:var(--muted)">Others: a personal portfolio, a creative-writing blog, a site built to learn HTML. Can you think of more?</p>
+  </div>
+</section>
+
+<!-- SUCCESS -->
+<section id="success">
+  <div class="wrap">
+    <div class="kicker">Part 4 · The core idea of the course</div>
+    <h2>The success formula</h2>
+    <p>Every money-making website succeeds or fails on three numbers. Most of this course is about raising one of them.</p>
+    <div class="formula">
+      <div class="t">Traffic<small>visits (sessions)</small></div><span class="op">×</span>
+      <div class="t">Conversion rate<small>% who take the action</small></div><span class="op">×</span>
+      <div class="t">Revenue per conversion<small>average order value</small></div><span class="op">=</span>
+      <div class="t" style="background:var(--accent);color:var(--accent-ink);border-color:var(--accent)">Revenue<small style="color:inherit;opacity:.85">per month</small></div>
+    </div>
+    <div class="grid g3">
+      <div class="card"><h4>Traffic sources</h4><ul class="clean"><li><b>Direct</b>: typed the address or used a bookmark</li><li><b>Unpaid referral</b>: a link on another site or a social post</li><li><b>Paid referral</b>: display and social ads</li><li><b>Unpaid search</b>: organic Google results (SEO)</li><li><b>Paid search</b>: search ads (SEM)</li><li><b>Email</b></li></ul></div>
+      <div class="card"><h4>Conversions</h4><ul class="clean"><li>Purchase</li><li>Lead (call or form)</li><li>Engagement</li><li>Account creation</li><li>Click-through</li></ul></div>
+      <div class="card"><h4>Revenue per conversion</h4><p>How much each conversion is worth: average order value, items per order, or ad revenue per visit on a media site.</p></div>
+    </div>
+
+    <div class="widget" id="calcWidget">
+      <h3>Try it: which lever matters most?</h3>
+      <p class="sub">Set up a store, then test a 20% improvement on each lever. Because the three multiply, a 20% gain on any one is a 20% gain in revenue. The real question is which one is <em>cheapest</em> to move.</p>
+      <div class="ctrl"><label for="cTraf">Monthly visits</label><input type="range" id="cTraf" min="500" max="100000" step="500" value="20000"><output id="oTraf"></output></div>
+      <div class="ctrl"><label for="cConv">Conversion rate</label><input type="range" id="cConv" min="0.1" max="8" step="0.1" value="1.5"><output id="oConv"></output></div>
+      <div class="ctrl"><label for="cRev">Avg. order value</label><input type="range" id="cRev" min="10" max="500" step="5" value="80"><output id="oRev"></output></div>
+      <div class="result">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px"><span>Monthly revenue</span><span class="big" id="cOut">—</span></div>
+        <div style="font-size:.9rem;color:var(--muted)" id="cOrders"></div>
+      </div>
+      <p style="font-weight:600;margin:16px 0 4px">Add 20% to one lever</p>
+      <div class="opts" id="cBoost">
+        <button type="button" data-v="none" aria-pressed="true">None</button>
+        <button type="button" data-v="traf" aria-pressed="false">+20% traffic</button>
+        <button type="button" data-v="conv" aria-pressed="false">+20% conversion rate</button>
+        <button type="button" data-v="rev" aria-pressed="false">+20% order value</button>
+      </div>
+      <p id="cMsg" style="font-size:.92rem;margin:0"></p>
+    </div>
+  </div>
+</section>
+
+<!-- CONVERSIONS -->
+<section id="conversions">
+  <div class="wrap">
+    <div class="kicker">Defining success</div>
+    <h2>Conversions by type of website</h2>
+    <p>A <b>conversion</b> is the action the website most wants a visitor to take. Each type of site has a primary conversion and some secondary ones that lead toward it. Pick a type.</p>
+    <div class="widget" style="margin-top:8px">
+      <div class="opts" id="convOpts"></div>
+      <div class="grid g3" id="convOut"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FLAGS -->
+<section id="flags">
+  <div class="wrap">
+    <div class="kicker">Practice</div>
+    <h2>Diagnose the problem: nothingbutflags.com</h2>
+    <p>Your friend's flag store isn't making money, and your friend asks you to help get more traffic. What do you advise?</p>
+    <div class="widget" id="flagWidget">
+      <h3>Ask for the numbers first</h3>
+      <p class="sub">Your friend says last month brought <b>500 visits</b> and sold <b>10 flags in 2 orders</b>. Change the numbers to test other situations.</p>
+      <div class="grid g3">
+        <div><label style="font-size:.85rem;font-weight:600" for="fVis">Visits last month</label><input type="number" id="fVis" value="500" min="0" step="50"></div>
+        <div><label style="font-size:.85rem;font-weight:600" for="fOrd">Orders</label><input type="number" id="fOrd" value="2" min="0" step="1"></div>
+        <div><label style="font-size:.85rem;font-weight:600" for="fItems">Flags sold</label><input type="number" id="fItems" value="10" min="0" step="1"></div>
+      </div>
+      <div class="result">
+        <div class="grid g3" style="text-align:center">
+          <div><div class="big" id="fCR">—</div><small style="color:var(--muted)">conversion rate</small></div>
+          <div><div class="big" id="fIPO">—</div><small style="color:var(--muted)">flags per order</small></div>
+          <div><div class="big" id="fNeed">—</div><small style="color:var(--muted)">visits per order</small></div>
+        </div>
+        <p id="fMsg" style="font-size:.93rem;margin:12px 0 0"></p>
+      </div>
+      <p style="font-size:.82rem;color:var(--muted);margin:10px 0 0">Benchmark used here: many online stores convert around 1–3% of visits. It's a rough rule of thumb; rates vary a lot by industry and price.</p>
+    </div>
+    <div class="keyidea">Don't fix the lever you were asked about. Fix the one that's broken. Sending more visitors to a site that doesn't convert just buys more people who leave.</div>
+  </div>
+</section>
+
+<!-- ROGUE -->
+<section id="rogue">
+  <div class="wrap">
+    <div class="kicker">Lecture case</div>
+    <h2>Analyzing the success of RogueFitness.com</h2>
+    <p>Rogue Fitness makes CrossFit-style equipment (barbells, weight plates, squat racks) and also sells shoes and apparel. It has two main target customers: <b>owners of CrossFit-style gyms</b> and <b>individual athletes</b> equipping a garage gym. We'll walk through all three parts of the formula. Open <a href="https://www.roguefitness.com" target="_blank" rel="noopener">roguefitness.com</a> in another tab and follow along; the site has changed since the textbook screenshots (February 2023).</p>
+
+    <h3>1 · Traffic</h3>
+    <div class="widget" id="rogueTraffic">
+      <p class="sub" style="margin-top:0">One month of sessions by source. <b>These numbers are made up for teaching</b>, not Rogue's real data. Group them different ways.</p>
+      <div class="opts" id="rtOpts">
+        <button type="button" data-v="source" aria-pressed="true">By source</button>
+        <button type="button" data-v="paid" aria-pressed="false">Paid vs. unpaid</button>
+      </div>
+      <div class="bars" id="rtBars"></div>
+      <div class="legend" id="rtLegend" style="margin-top:10px"></div>
+      <p id="rtMsg" style="font-size:.92rem;margin:12px 0 0"></p>
+    </div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr))">
+      <div class="card"><h4>Why is direct traffic so high?</h4><p>Rogue is a famous name among CrossFit athletes. Anyone shopping for equipment goes straight to the site, and people who first came from an ad or email come back directly next time. Direct traffic costs nothing, so it's very profitable.</p></div>
+      <div class="card"><h4>Is 46,667 paid-referral visits good?</h4><p>You can't tell from this alone. It's a lot of visits, but whether they were bought at a profit depends on ad cost, conversion rate and margin. That's why traffic is only one part of the formula.</p></div>
+      <div class="card"><h4>Search: check it yourself</h4><p>Google "barbell," "squat rack," "weightlifting shoes." For each: Is there a Rogue ad? Does Rogue appear in the organic results, and in what position? Are there good searches where Rogue doesn't appear?</p></div>
+      <div class="card"><h4>Channels overlap</h4><p>A search ad on a term where Rogue already ranks first may just move a visit from unpaid to paid. An email may only speed up a visit that would have happened directly. More traffic in one channel isn't always new traffic.</p></div>
+    </div>
+
+    <h3>2 · Conversion: discovery → evaluation → payment</h3>
+    <p>All that traffic only pays off if the website helps people buy. A shopper goes through three stages. Click each.</p>
+    <div class="stages" id="stages">
+      <button class="stage" type="button" data-v="0" aria-pressed="true"><b>1 · Product discovery</b><small>Can I find the right thing?</small></button>
+      <button class="stage" type="button" data-v="1" aria-pressed="false"><b>2 · Product evaluation</b><small>Is this the one I want?</small></button>
+      <button class="stage" type="button" data-v="2" aria-pressed="false"><b>3 · Payment</b><small>Is buying it easy?</small></button>
+    </div>
+    <div class="card" id="stageOut" style="margin-top:12px"></div>
+
+    <h3>3 · Revenue per conversion</h3>
+    <div class="grid g2">
+      <div class="card tint-teal"><h4>Do: recommend add-ons</h4><p>"Often bought with" suggestions (collars, chalk, a bar rack) raise the order size. The tactic is simple; good recommendations take sophisticated software.</p></div>
+      <div class="card tint-teal"><h4>Do: offer customization</h4><p>Rogue's custom option lets a gym put its name on a barbell. In the textbook example, the price rose from <b>$350 to $425</b>, about <b>21% more</b> revenue from the same conversion.</p></div>
+      <div class="card" style="background:var(--red-soft);border-color:transparent;box-shadow:none"><h4>Don't: push expensive items first</h4><p>Featuring only high-priced products or sorting categories from highest to lowest price raises order size but makes products harder to find. <b>Conversion rate usually matters more to profit than order size</b>, so discovery comes first.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- LOCAL -->
+<section id="local">
+  <div class="wrap">
+    <div class="kicker">Apply it</div>
+    <h2>Assignment: evaluate a local business website</h2>
+    <p>Pick a local business with a website (a restaurant, dentist, gym, church or shop) and run the three-part test. Notice the order: you define the conversion first, because local businesses vary so much.</p>
+    <div class="widget ws" id="ws">
+      <label for="w0">Business and website</label><input type="text" id="w0" placeholder="e.g., Main Street Bakery — mainstreetbakery.com">
+      <label for="w1">1. Primary and secondary conversions</label><textarea id="w1" placeholder="For most local businesses the primary conversion is a lead (call, form, booking) or a visit in person."></textarea>
+      <label for="w2">2. How well does the site help visitors convert?</label><textarea id="w2" placeholder="Is the phone number, booking button or address easy to find on a phone? Above the fold?"></textarea>
+      <label for="w3">3. One change that might raise conversion</label><textarea id="w3"></textarea>
+      <label for="w4">4. Search traffic: three searches where it should appear, and how it did</label><textarea id="w4" placeholder="Search the business name too: does Google show a business panel with hours and reviews?"></textarea>
+      <label for="w5">5. One way to raise revenue per conversion (doesn't have to be digital)</label><textarea id="w5" placeholder="e.g., a premium add-on that staff offer after the lead comes in"></textarea>
+      <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;align-items:center">
+        <button class="btn" id="wsCopy" type="button">Copy my answers</button>
+        <button class="ghost" id="wsClear" type="button">Clear</button>
+        <span id="wsNote" style="font-size:.85rem;color:var(--muted)">Answers are saved in this browser only.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="wrap">
+    <div class="kicker">Check yourself</div>
+    <h2>Chapter 1 quiz</h2>
+    <p>Ten questions. Pick an answer to see the explanation.</p>
+    <div id="quizBox"></div>
+    <div class="score"><span>Score: <b id="qScore">0</b> / <span id="qTotal">0</span> · answered <span id="qDone">0</span></span><button class="ghost" id="qReset" type="button">Start over</button></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Digital Marketing Essentials · Chapter 1: Digital Marketing Foundations. Learning page for Jessup University students, based on the Stukent chapter lecture.</p>
+    <p>Rogue Fitness traffic figures are illustrative, as in the original lecture. Browser share: StatCounter Global Stats. CMS share: W3Techs. Interactive models on this page are simplified illustrations for learning.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  function $(id){return document.getElementById(id);}
+  function store(k,v){try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k,v);}catch(e){return null;}}
+  function money(x){return '$'+Math.round(x).toLocaleString();}
+  function pressGroup(g,cb){
+    g.addEventListener('click',function(e){
+      var b=e.target.closest('button'); if(!b||!g.contains(b)) return;
+      g.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed','false');});
+      b.setAttribute('aria-pressed','true'); cb(b.dataset.v);
+    });
+  }
+
+  // theme
+  var root=document.documentElement, btn=$('themeBtn');
+  var saved=store('dm-theme'); if(saved) root.setAttribute('data-theme',saved);
+  btn.addEventListener('click',function(){
+    var cur=root.getAttribute('data-theme');
+    if(!cur){cur=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}
+    var next=cur==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next); store('dm-theme',next);
+  });
+
+  // URL anatomy
+  var parts=[
+    ['https://','Protocol','How the browser and server talk. The "s" means the connection is encrypted with a security certificate.',false],
+    ['www.','Subdomain','An optional label in front of the domain. "www" is a convention; shop.example.com or blog.example.com are other subdomains.',false],
+    ['roguefitness','Domain name','The name the business leases from a registrar. This plus the extension is what goes on a business card.',true],
+    ['.com','Top-level domain (extension)','.com, .org, .edu, .us and hundreds more. It is part of the domain name.',true],
+    ['/rogue-ohio-bar','Path','Which page on the site. A URL points to one page; a domain points to the whole site.',false],
+    ['?color=black','Query string','Extra details sent to the page, such as filters, search terms or tracking tags (you\'ll see UTM tags in Chapter 3).',false]
+  ];
+  var html='', inDom=false;
+  parts.forEach(function(p,i){
+    if(p[3]&&!inDom){html+='<span class="dom">';inDom=true;}
+    if(!p[3]&&inDom){html+='</span>';inDom=false;}
+    html+='<button type="button" data-i="'+i+'" aria-pressed="'+(i===2)+'">'+p[0]+'</button>';
+  });
+  if(inDom) html+='</span>';
+  $('urlParts').innerHTML=html;
+  function showUrl(i){var p=parts[i]; $('urlOut').innerHTML='<b>'+p[1]+'</b> <span class="tag">'+p[0]+'</span><br>'+p[2];}
+  $('urlParts').addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    $('urlParts').querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed','false');});
+    b.setAttribute('aria-pressed','true'); showUrl(+b.dataset.i);
+  });
+  showUrl(2);
+
+  // DNS flow
+  var dns=[
+    [0,'<b>Step 1.</b> You type <code>amazon.com</code> into the browser. The browser knows the name but not where the site lives.'],
+    [1,'<b>Step 2.</b> The browser asks a DNS server: "What\'s the IP address for amazon.com?"'],
+    [1,'<b>Step 3.</b> The DNS server looks it up and answers: <code>54.192.189.0</code>. (Browsers remember the answer for a while, so the next visit skips this step.)'],
+    [2,'<b>Step 4.</b> The browser sends a request for the homepage to the server at that IP address.'],
+    [2,'<b>Step 5.</b> Amazon\'s server sends back the page\'s files: HTML, images, styles and scripts.'],
+    [3,'<b>Step 6.</b> The browser reads the HTML and draws the page. All of this usually takes under a second. <b>If any step is slow, visitors leave</b>, which is why page speed is a marketing issue.']
+  ];
+  var di=0;
+  function drawDns(){
+    document.querySelectorAll('#dnsFlow .node').forEach(function(n){n.classList.toggle('on',+n.dataset.n===dns[di][0]);});
+    $('dnsMsg').innerHTML=dns[di][1];
+    $('dnsPrev').disabled=di===0;
+    $('dnsNext').textContent=di===dns.length-1?'Start over ↺':'Next step →';
+  }
+  $('dnsNext').addEventListener('click',function(){di=di===dns.length-1?0:di+1;drawDns();});
+  $('dnsPrev').addEventListener('click',function(){if(di>0){di--;drawDns();}});
+  drawDns();
+
+  // glossary
+  var G=[
+    ['Domain name','The name of a website (roguefitness.com) that a business leases from a registrar.'],
+    ['Registrar','A company that manages the leasing of domain names, such as GoDaddy or Namecheap.'],
+    ['Server','An always-on computer that stores a website\'s files and sends them when requested.'],
+    ['Web browser','Software (Chrome, Safari, Edge) that requests web pages and displays them for people.'],
+    ['IP address','A number that identifies a computer on the internet, such as 54.192.189.0.'],
+    ['DNS','Domain Name System: matches a domain name to its IP address, like a phone book.'],
+    ['Web hosting','Renting space on someone else\'s server so your site is always available.'],
+    ['Security certificate','A file that proves a site\'s identity and turns on encryption (TLS), so data can\'t be read in transit.'],
+    ['SSL / TLS','Encryption protocols. SSL is the older name; TLS is what\'s used today, though people still say "SSL certificate."'],
+    ['HTTP vs. HTTPS','The rules for sending pages. HTTPS is the encrypted version, shown by the padlock.'],
+    ['HTML','Hypertext Markup Language: the code web pages are written in.'],
+    ['Content management system','Software (WordPress, Wix, Shopify) for building and editing a site without coding it from scratch.'],
+    ['Payment gateway','A service (Stripe, PayPal, Square) that lets a website accept card payments.'],
+    ['Merchant account','A business bank account that receives card payments and can process refunds.'],
+    ['Inventory management','Software that tracks what you have in stock across every product you sell.'],
+    ['Analytics','Reports on what visitors do: where they came from, what they viewed, and what they bought.'],
+    ['Conversion','The action a site most wants a visitor to take, such as a purchase or a lead.'],
+    ['Above the fold','The part of a page visible without scrolling.']
+  ];
+  $('gloss').innerHTML=G.map(function(g){
+    return '<button type="button" class="term" aria-expanded="false"><b>'+g[0]+'</b><span class="hint">Tap to reveal</span><span class="def">'+g[1]+'</span></button>';
+  }).join('');
+  $('gloss').addEventListener('click',function(e){
+    var t=e.target.closest('.term'); if(!t) return;
+    var o=t.classList.toggle('open'); t.setAttribute('aria-expanded',o);
+  });
+  function setAll(o){document.querySelectorAll('#gloss .term').forEach(function(t){t.classList.toggle('open',o);t.setAttribute('aria-expanded',o);});}
+  $('glossAll').addEventListener('click',function(){setAll(true);});
+  $('glossNone').addEventListener('click',function(){setAll(false);});
+  $('glossFilter').addEventListener('input',function(){
+    var q=this.value.toLowerCase();
+    document.querySelectorAll('#gloss .term').forEach(function(t){t.style.display=t.textContent.toLowerCase().indexOf(q)>-1?'':'none';});
+  });
+
+  // HTTP vs HTTPS
+  var plain='POST /checkout HTTP/1.1<br>name=Jordan+Lee&amp;card=4111+1111+1111+1111&amp;exp=08/29&amp;cvv=123&amp;zip=95630';
+  function scramble(){var c='ABCDEFabcdef0123456789+/=', s='';for(var i=0;i<128;i++){s+=c[Math.floor(Math.random()*c.length)];}return s;}
+  function drawHttp(v){
+    if(v==='http'){
+      $('httpLock').innerHTML='⚠️ <b>Not secure</b> &nbsp;http://shop.example.com';
+      $('httpWire').innerHTML=plain;
+      $('httpMsg').innerHTML='<b>Everything is readable:</b> name, card number, expiration date and security code. Browsers now warn visitors away from pages like this.';
+    } else {
+      $('httpLock').innerHTML='🔒 <b>Secure</b> &nbsp;https://shop.example.com';
+      $('httpWire').textContent=scramble();
+      $('httpMsg').innerHTML='<b>Encrypted with TLS.</b> The snoop sees only scrambled data. Only the browser and the server hold the keys to read it.';
+    }
+  }
+  pressGroup($('httpOpts'),drawHttp); drawHttp('http');
+
+  // success calculator
+  var boost='none';
+  function calc(){
+    var t=+$('cTraf').value, c=+$('cConv').value/100, r=+$('cRev').value;
+    $('oTraf').textContent=t.toLocaleString(); $('oConv').textContent=(c*100).toFixed(1)+'%'; $('oRev').textContent='$'+r;
+    var base=t*c*r;
+    var bt=t,bc=c,br=r;
+    if(boost==='traf') bt*=1.2; if(boost==='conv') bc*=1.2; if(boost==='rev') br*=1.2;
+    var nw=bt*bc*br;
+    $('cOut').textContent=money(nw);
+    $('cOrders').textContent=Math.round(bt*bc).toLocaleString()+' orders × $'+Math.round(br)+' average order';
+    var msg={
+      none:'Pick a lever to see the effect. Then ask: what would it cost to get there?',
+      traf:'<b>+'+money(nw-base)+' per month.</b> Traffic usually costs money: ads, SEO work, content. Paid visits have to pay for themselves.',
+      conv:'<b>+'+money(nw-base)+' per month.</b> Raising conversion from '+(c*100).toFixed(1)+'% to '+(bc*100).toFixed(1)+'% often costs the least: clearer navigation, better product pages, an easier checkout. And it makes every future visitor worth more.',
+      rev:'<b>+'+money(nw-base)+' per month.</b> Add-ons, bundles and upgrades raise order value. Careful: pushing pricey items can lower the conversion rate.'
+    };
+    $('cMsg').innerHTML=msg[boost];
+  }
+  ['cTraf','cConv','cRev'].forEach(function(id){$(id).addEventListener('input',calc);});
+  pressGroup($('cBoost'),function(v){boost=v;calc();}); calc();
+
+  // conversions
+  var C={
+    'Retail (eCommerce)':['Purchase',['Create account','Sign up for emails','Pay for premium account'],'Walmart.com'],
+    'Lead generation':['Lead (phone call or form)',['Sign up for emails'],'Marketo.com, a law firm, a roofer'],
+    'Travel search':['Booking (e.g., a hotel)',['Click on an ad','Sign up for emails'],'Expedia.com'],
+    'Media':['Engagement',['Page views','Video views','Create account'],'Hulu.com, a news site'],
+    'Social media':['Create account',['Create content (post)','Interact (like, share, repost)'],'Snapchat, Instagram'],
+    'Affiliate marketing':['Click an affiliate link',['Purchase on the partner site'],'OutdoorGearLab.com'],
+    'Marketplace':['Post an item or make a purchase',['Create account'],'eBay, Neighbor.com']
+  };
+  var ck=Object.keys(C);
+  $('convOpts').innerHTML=ck.map(function(k,i){return '<button type="button" data-v="'+k+'" aria-pressed="'+(i===0)+'">'+k+'</button>';}).join('');
+  function drawConv(k){
+    var c=C[k];
+    $('convOut').innerHTML='<div class="card tint-blue"><span class="tag">Primary</span><h4 style="margin-top:8px">'+c[0]+'</h4></div>'+
+      '<div class="card"><span class="tag">Secondary</span><ul class="clean" style="margin-top:8px">'+c[1].map(function(s){return '<li>'+s+'</li>';}).join('')+'</ul></div>'+
+      '<div class="card tint-purple"><span class="tag">Example</span><h4 style="margin-top:8px">'+c[2]+'</h4><p style="font-size:.88rem;margin:0">How does each secondary conversion lead toward the primary one?</p></div>';
+  }
+  pressGroup($('convOpts'),drawConv); drawConv(ck[0]);
+
+  // flags diagnosis
+  function flags(){
+    var v=Math.max(0,+$('fVis').value||0), o=Math.max(0,+$('fOrd').value||0), it=Math.max(0,+$('fItems').value||0);
+    var cr=v?o/v:0;
+    $('fCR').textContent=v?(cr*100).toFixed(1)+'%':'—';
+    $('fIPO').textContent=o?(it/o).toFixed(1):'—';
+    $('fNeed').textContent=o?Math.round(v/o).toLocaleString():'—';
+    var msg;
+    if(!v) msg='Enter the number of visits.';
+    else if(cr<0.01) msg='<b>This is a conversion problem, not a traffic problem.</b> Only '+(cr*100).toFixed(1)+'% of visitors buy. At 2%, the same '+v.toLocaleString()+' visits would bring about '+Math.round(v*0.02)+' orders. Fix discovery, evaluation and checkout before paying for more visitors.';
+    else if(cr<=0.03) msg='<b>Conversion looks normal.</b> Now more traffic is worth it: each extra visitor is worth about $'+(it/v*25).toFixed(2)+' in sales (assuming $25 a flag). Look at search, social and email.';
+    else msg='<b>Conversion is strong.</b> The site does its job, so the biggest gain is likely more traffic, or raising order value with bundles (flag + pole + mount).';
+    if(o&&it/o>=4&&cr<0.03) msg+=' Bright spot: buyers take '+(it/o).toFixed(1)+' flags per order, so revenue per conversion is healthy.';
+    $('fMsg').innerHTML=msg;
+  }
+  ['fVis','fOrd','fItems'].forEach(function(id){$(id).addEventListener('input',flags);}); flags();
+
+  // rogue traffic
+  var R=[['Direct',249319,'u'],['Paid referral',46667,'p'],['Unpaid search',44638,'u'],['Email',39264,'e'],['Unpaid referral',18202,'u'],['Paid search',15582,'p']];
+  var total=R.reduce(function(a,r){return a+r[1];},0);
+  var col={u:'var(--teal)',p:'var(--red)',e:'var(--purple)'};
+  function drawRogue(mode){
+    var rows;
+    if(mode==='paid'){
+      var g={u:0,p:0,e:0}; R.forEach(function(r){g[r[2]]+=r[1];});
+      rows=[['Unpaid',g.u,'u'],['Email',g.e,'e'],['Paid',g.p,'p']];
+      $('rtMsg').innerHTML='<b>About '+Math.round(g.u/total*100)+'% of visits cost Rogue nothing per click</b> (direct, unpaid search, unpaid referral). Email is cheap. Only '+Math.round(g.p/total*100)+'% is bought. That mix points to a strong brand and satisfied repeat customers.';
+    } else {
+      rows=R;
+      $('rtMsg').innerHTML='Direct traffic is <b>'+Math.round(249319/total*100)+'%</b> of all sessions. Notice the flip: in <b>referral</b>, paid beats unpaid; in <b>search</b>, unpaid beats paid. Is Rogue doing something wrong, or is unpaid referral traffic just hard to earn?';
+    }
+    var max=Math.max.apply(null,rows.map(function(r){return r[1];}));
+    $('rtBars').innerHTML=rows.map(function(r){
+      return '<div class="bar"><span>'+r[0]+'</span><div class="track"><div class="fill" style="width:'+(r[1]/max*100)+'%;background:'+col[r[2]]+'"></div></div><b>'+r[1].toLocaleString()+'</b></div>';
+    }).join('');
+    $('rtLegend').innerHTML='<span><i style="background:var(--teal)"></i>Unpaid</span><span><i style="background:var(--purple)"></i>Email (owned list)</span><span><i style="background:var(--red)"></i>Paid</span><span>Total: '+total.toLocaleString()+' sessions</span>';
+  }
+  pressGroup($('rtOpts'),drawRogue); drawRogue('source');
+
+  // stages
+  var S=[
+    '<h4>Product discovery: helping each customer find the right product</h4><ul class="clean">'+
+      '<li><b>"Equipment for CrossFit®"</b> in the navigation speaks to both gym owners and garage-gym athletes.</li>'+
+      '<li><b>Category links</b> (barbells, plates, racks, shoes) serve shoppers who know exactly what they want.</li>'+
+      '<li><b>Deals</b> attracts bargain hunters. A <b>custom-gym</b> option serves high-value buyers building a whole gym.</li>'+
+      '<li>The <b>search bar</b> is for people who know the product name.</li>'+
+      '<li>The <b>expanding Shop menu</b> shows the full range in a small space, which also works well on phones.</li>'+
+      '<li><b>Below the fold:</b> top sellers first, then popular categories, then more categories for people who scroll.</li></ul>'+
+      '<p style="margin:0;font-size:.92rem"><b>Trade-off to discuss:</b> in 2023, much of the homepage promoted a fitness challenge and Rogue\'s content hub, not products. That builds engagement with loyal customers. Is it worth the space?</p>',
+    '<h4>Product evaluation: making the product page convince</h4><p style="font-size:.92rem">Example: the product page for The Ohio Bar, a barbell.</p><ul class="clean">'+
+      '<li><b>Quick specs with icons</b> (20 kg, bushing, 28.5 mm) reassure experts they\'re on the right product.</li>'+
+      '<li><b>"Made in USA"</b> signals quality and appeals to buy-American shoppers.</li>'+
+      '<li>The <b>description</b> sells the benefits, including a lifetime warranty.</li>'+
+      '<li>A <b>full spec sheet</b> lets careful buyers feel confident.</li>'+
+      '<li>A <b>close-up photo</b> creates desire (lifters love a new bar).</li>'+
+      '<li><b>Star ratings from many reviews</b> reassure would-be buyers.</li></ul>'+
+      '<p style="margin:0;font-size:.92rem"><b>How would Rogue know a different photo works better?</b> An <b>A/B test</b>: show the new photo to a random half of visitors and compare their conversion rates.</p>',
+    '<h4>Payment: make buying as frictionless as possible</h4><p style="font-size:.92rem">Click through Rogue\'s checkout as it worked in the textbook example.</p><div class="checkout" id="coSteps"></div><div class="result" id="coOut" style="margin-top:6px"></div>'
+  ];
+  var CO=[
+    ['Add to Cart','The button is easy to spot but sits below the fold, which normally breaks a design rule. For an expensive barbell, motivated buyers will scroll, so it costs little.'],
+    ['Cart pop-up','Shows the item, suggests add-ons (revenue per conversion!), and offers a red Checkout button, while still letting shoppers keep browsing.'],
+    ['Sign in or guest','Rogue encourages an account: account holders buy again more often, and saved card details shorten future checkouts. Guest checkout is still offered.'],
+    ['Address','Standard address fields, plus an option to sign up for Rogue emails (a secondary conversion).'],
+    ['Shipping','Free shipping on a 45-lb barbell isn\'t realistic, so prices and options appear once the address is in.'],
+    ['Payment','The button says "Continue to Review," not "Purchase." Rogue chose a longer checkout for clarity, with the same red button and clear next-step text at every stage.']
+  ];
+  function drawStage(i){
+    $('stageOut').innerHTML=S[i];
+    if(+i===2){
+      $('coSteps').innerHTML=CO.map(function(c,j){return '<button type="button" data-v="'+j+'" aria-pressed="'+(j===0)+'">'+(j+1)+'. '+c[0]+'</button>';}).join('');
+      var showCo=function(j){$('coOut').innerHTML='<b>'+CO[j][0]+'.</b> '+CO[j][1];};
+      pressGroup($('coSteps'),showCo); showCo(0);
+    }
+  }
+  pressGroup($('stages'),drawStage); drawStage(0);
+
+  // worksheet
+  var W=['w0','w1','w2','w3','w4','w5'];
+  W.forEach(function(id){
+    var v=store('dm1-'+id); if(v) $(id).value=v;
+    $(id).addEventListener('input',function(){store('dm1-'+id,this.value);});
+  });
+  $('wsCopy').addEventListener('click',function(){
+    var txt=W.map(function(id){return document.querySelector('label[for='+id+']').textContent+'\n'+($(id).value||'—');}).join('\n\n');
+    function done(){$('wsNote').textContent='Copied. Paste into your assignment.';}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,function(){$('wsNote').textContent='Copy blocked by the browser. Select the text and copy it manually.';});}
+    else{$('wsNote').textContent='Copy not supported here. Select the text and copy it manually.';}
+  });
+  $('wsClear').addEventListener('click',function(){W.forEach(function(id){$(id).value='';store('dm1-'+id,'');});$('wsNote').textContent='Cleared.';});
+
+  // quiz
+  var Q=[
+    ['What does a DNS server do?',['Stores the website\'s files','Encrypts credit card data','Leases domain names to businesses','Matches a domain name to its IP address'],3,'DNS works like a phone book: it turns a name like amazon.com into the number computers use to find the server.'],
+    ['Which is a domain name, not a full URL?',['target.com','https://www.target.com/c/shoes','www.target.com/cart','http://target.com/?q=lamp'],0,'The domain is the registered name plus its extension. A URL adds the protocol, path and other details that point to one specific page.'],
+    ['A small bakery wants a website but has no money for its own server. What should it buy?',['A merchant account','Web hosting','A payment gateway','An IP address'],1,'Web hosting rents a slice of a server that is always on, so the bakery doesn\'t need to buy or maintain hardware.'],
+    ['What does a security certificate (SSL/TLS) do?',['Speeds up page loading','Improves the site\'s design','Encrypts data so third parties can\'t read it','Registers the domain name'],2,'It turns on encryption (HTTPS). Today every page, not just checkout, should be HTTPS, and browsers mark plain-HTTP pages "Not secure."'],
+    ['Why does a store need a merchant account rather than a personal checking account?',['It\'s cheaper','It can receive card payments and process refunds','It\'s required to buy a domain','It provides inventory tracking'],1,'A merchant account is a business account set up to receive card funds and handle refunds.'],
+    ['The three parts of the success formula are traffic, conversion rate and…',['Bounce rate','Number of pages','Social media followers','Revenue per conversion'],3,'Traffic × conversion rate × revenue per conversion = revenue. Most of the course is about raising one of these.'],
+    ['What is the primary conversion for a lead-generation website?',['A purchase','A page view','A phone call or form submission','Clicking an ad'],2,'Lead-gen sites (law firms, roofers, B2B software) want contact information or a call so sales staff can follow up.'],
+    ['nothingbutflags.com had 500 visits and 2 orders. What should your friend focus on first?',['Raising conversion','Buying more traffic','Raising prices','Building an app'],0,'2 orders from 500 visits is a 0.4% conversion rate. More traffic would mostly bring more people who leave without buying.'],
+    ['In the Rogue example, why is a high share of direct traffic good news?',['Direct traffic is easy to buy','It signals a strong brand and repeat customers, and it costs nothing per visit','Google ranks direct traffic higher','Direct visitors never buy'],1,'People who type the address know the brand and often come back to buy again, and there\'s no ad cost for those visits.'],
+    ['Why is sorting products from highest to lowest price usually a bad idea?',['It\'s against Google\'s rules','It slows the website down','It can lower conversion, and conversion rate usually matters more to profit than order size','Customers can\'t see prices'],2,'It may raise order value, but if fewer people find what they want, total profit drops. Product discovery comes first.']
+  ];
+  var score=0,done=0;
+  function buildQuiz(){
+    score=0;done=0;
+    $('quizBox').innerHTML=Q.map(function(q,i){
+      return '<div class="q" data-i="'+i+'"><p class="stem">'+(i+1)+'. '+q[0]+'</p><div class="choices">'+q[1].map(function(c,j){return '<button type="button" class="c" data-j="'+j+'">'+c+'</button>';}).join('')+'</div><div class="exp">'+q[3]+'</div></div>';
+    }).join('');
+    $('qTotal').textContent=Q.length; upd();
+  }
+  function upd(){$('qScore').textContent=score;$('qDone').textContent=done;}
+  $('quizBox').addEventListener('click',function(e){
+    var b=e.target.closest('button.c'); if(!b) return;
+    var box=b.closest('.q'); if(box.classList.contains('done')) return;
+    var q=Q[+box.dataset.i], j=+b.dataset.j;
+    box.querySelectorAll('button.c').forEach(function(x,k){x.disabled=true; if(k===q[2]) x.classList.add('right');});
+    if(j===q[2]) score++; else b.classList.add('wrong');
+    box.classList.add('done'); done++; upd();
+  });
+  $('qReset').addEventListener('click',function(){buildQuiz(); $('quiz').scrollIntoView();});
+  buildQuiz();
+})();
+</script>
+</body>
+</html>
